@@ -43,7 +43,7 @@ In light of these requirements, Keycloak was chosen because:
 3. VM hosted on GCP and only allows requests from Cloudflare
 4. Database does not allow connections except from whitelisted addresses and is backed up daily
 5. An optimized and customized image with health and metrics enabled is built for each deployment and versioned by either `master`, `staging` or `dev`
-6. Customized using (`keycloakify`)[http://keycloakify.dev] which is built on [React](https://react.dev)
+6. Customized using [`keycloakify`](http://keycloakify.dev) which is built on [React](https://react.dev)
 7. Services to ship logs, metrics and uptime information from Docker and VM to Elastic have been configured (but not actively used)
 
 ## Deployment view
