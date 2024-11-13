@@ -27,17 +27,24 @@ In light of these requirements, Keycloak was chosen because:
 
 ## Constraints
 
-- a language and framework agnostic approach to IdP
-- support for SSO and SAML
-- client facing aspects should be customizable
-- easy to scale
-- easy to integrate with
-- easy to export data out
-- easy to configure
-- well documented and active community
+- A language and framework agnostic approach to authentication and authorization
+- Support for SSO and SAML
+- Client facing aspects should be customizable
+- Easy to scale
+- Easy to integrate with
+- Easy to export data out
+- Easy to configure
+- Well documented and active community
 
 ## Solution strategy
-TODO
+
+1. Deployments are done using Docker Swarm with a publicly accessible reverse proxy (NGINX) sitting in front
+2. Keycloak version is stored in GitHub variables so that we can easily perform updates, upgrading major versions does not require manual intervention. In our context the important changes we need to track are the configuration changes and not so much the version of Keycloak
+3. VM hosted on GCP and only allows requests from Cloudflare
+4. Database does not allow connections except from whitelisted addresses and is backed up daily
+5. An optimized and customized image with health and metrics enabled is built for each deployment and versioned by either `master`, `staging` or `dev`
+6. Customized using (`keycloakify`)[http://keycloakify.dev] which is built on [React](https://react.dev)
+7. Services to ship logs, metrics and uptime information from Docker and VM to Elastic have been configured (but not actively used)
 
 ## Deployment view
 TODO
