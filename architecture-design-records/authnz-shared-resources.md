@@ -43,7 +43,7 @@ In light of these requirements, Keycloak was chosen because:
 - An optimized and customized image with health and metrics enabled is built for each deployment and versioned by either `master`, `staging` or `dev`
 - Customized using [`keycloakify`](http://keycloakify.dev) which is built on [React](https://react.dev)
 - Services to ship logs, metrics and uptime information from Docker and VM to Elastic have been configured (but not actively used)
-- Versioning goes in the opposite direction, `staging` amounts to a patch (and preview) release and production a minor or major release as applicable. The idea is to run staging for a few months so that issues have enough time to surface and only then make a production release (which is not preview)
+- `staging` amounts to a patch (and preview) release and production a minor or major release as applicable. The idea is to run staging for a few months so that issues have enough time to surface and only then make a production release (which is not preview)
 
 ## Deployment view
 ![image](https://github.com/user-attachments/assets/eb2f987d-43dc-4cf8-96a0-11cd99f4716b)
