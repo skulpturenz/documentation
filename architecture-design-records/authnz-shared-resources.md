@@ -1,5 +1,3 @@
-**DRAFT**
-
 ## Introduction & goals
 ### Requirements
 Identity services are a fundamental requirement of every modern web application. 
@@ -38,13 +36,14 @@ In light of these requirements, Keycloak was chosen because:
 
 ## Solution strategy
 
-1. Deployments are done using Docker Swarm with a publicly accessible reverse proxy (NGINX) sitting in front
-2. Keycloak version is stored in GitHub variables so that we can easily perform updates, upgrading major versions does not require manual intervention. In our context the important changes we need to track are the configuration changes and not so much the version of Keycloak
-3. VM hosted on GCP and only allows requests from Cloudflare
-4. Database does not allow connections except from whitelisted addresses and is backed up daily
-5. An optimized and customized image with health and metrics enabled is built for each deployment and versioned by either `master`, `staging` or `dev`
-6. Customized using [`keycloakify`](http://keycloakify.dev) which is built on [React](https://react.dev)
-7. Services to ship logs, metrics and uptime information from Docker and VM to Elastic have been configured (but not actively used)
+- Deployments are done using Docker Swarm with a publicly accessible reverse proxy (NGINX) sitting in front
+- Keycloak version is stored in GitHub variables so that we can easily perform updates, upgrading major versions does not require manual intervention. In our context the important changes we need to track are the configuration changes and not so much the version of Keycloak
+- VM hosted on GCP and only allows requests from Cloudflare
+- Database does not allow connections except from whitelisted addresses and is backed up daily
+- An optimized and customized image with health and metrics enabled is built for each deployment and versioned by either `master`, `staging` or `dev`
+- Customized using [`keycloakify`](http://keycloakify.dev) which is built on [React](https://react.dev)
+- Services to ship logs, metrics and uptime information from Docker and VM to Elastic have been configured (but not actively used)
+- Versioning goes in the opposite direction, `staging` amounts to a patch (and preview) release and production a minor or major release as applicable. The idea is to run staging for a few months so that issues have enough time to surface and only then make a production release (which is not preview)
 
 ## Deployment view
 ![image](https://github.com/user-attachments/assets/eb2f987d-43dc-4cf8-96a0-11cd99f4716b)
@@ -58,17 +57,12 @@ In light of these requirements, Keycloak was chosen because:
 - Authorization vs authentication: https://www.cloudflare.com/en-gb/learning/access-management/what-is-access-control/
 
 ## Architecture decisions
-TODO
-- there is only a production service running for the moment
-- upgrades are not zero downtime
+- 14/11/24
+   - There is only one VM provisioned for services due to cost. Deployments to `staging` and `dev` environments will take down production. A production release has not been made yet only staging
 
 ## Quality
-TODO
-- zero down time is nice to have but requires migrating to a different proxy, not important for the moment
+- Find a different proxy so that we can do zero-downtime deployments
 
-
-Sessions need to be sticky and NGINX caches IP addresses of services if we don’t refer to the Docker Swarm LB so NGINX has to be restarted each time = deployments are not zero down time
-
-`kamal-proxy` available but it does not do load balancing (on the TODO)
-
-authnz-service-proxy to put in front of anything that needs to be authenticated. function: keep redirecting to `authnz` until authenticated.
+## Risks & technical debt
+- At the moment NGINX refers to each Keycloak node specifically instead of the Docker Swarm LB and since NGINX caches IP addresses of services, it has to be restarted each deployment. There are ways to force NGINX to resolve DNS each time (see: https://serverfault.com/a/1098464) but it might be better to find a proxy which is better suited instead of NGINX
+- NGINX uses IP hashing so that a request goes back to the same node, sticky sessions are a paid feature, see: https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/#enabling-session-persistence. There are proxies available which have sticky sessions out of the box
