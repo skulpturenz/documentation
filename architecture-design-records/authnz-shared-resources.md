@@ -24,7 +24,6 @@ In light of these requirements, Keycloak was chosen because:
 - [Naveen Mathew](mailto:naveen@skulpture.xyz)
 
 ## Constraints
-
 - A language and framework agnostic approach to authentication and authorization
 - Support for SSO and SAML
 - Client facing aspects should be customizable
@@ -35,7 +34,6 @@ In light of these requirements, Keycloak was chosen because:
 - Well documented and active community
 
 ## Solution strategy
-
 - Deployments are done using Docker Swarm with a publicly accessible reverse proxy (NGINX) sitting in front
 - Keycloak version is stored in GitHub variables so that we can easily perform updates, upgrading major versions does not require manual intervention. In our context the important changes we need to track are the configuration changes and not so much the version of Keycloak
 - VM hosted on GCP and only allows requests from Cloudflare
