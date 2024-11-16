@@ -8,9 +8,12 @@ Landing pages are the first point of contact for someone who is new to an organi
 
 There are many website builders available for the frontend such as Squarespace and Wix which allows for WYSIWYG editing of the frontend. In this case [Astro](https://astro.build) was chosen instead primarily due to familiarity which eases maintenance and using a code first approach also makes versioning changes simpler.
 
+Enquiries are stored in a Google Sheet and any associated files are stored on Google Drive so that it is easy to work with.
+
 ### Quality goals
 - Maintainability: It should be simple to adapt and update designs
 - Efficient: Expected and should be able to handle a potentially large amount of traffic
+- Accessible: Data should be easy to access, and work with
 
 ### Stakeholders
 - [Naveen Mathew](mailto:naveen@skulpture.xyz)
