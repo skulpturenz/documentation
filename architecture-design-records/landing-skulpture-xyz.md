@@ -1,5 +1,3 @@
-**DRAFT**
-
 ## Introduction & goals
 ### Requirements
 `landing` is the landing page for https://skulpture.xyz and it comprises of a lambda function deployed to a GCP VM and a frontend which is deployed to Cloudflare Pages. 
